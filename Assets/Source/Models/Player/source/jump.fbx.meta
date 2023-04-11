@@ -3,7 +3,27 @@ guid: b8fb0f30540ea29499b57921ba2891b7
 ModelImporter:
   serializedVersion: 21300
   internalIDToNameTable: []
-  externalObjects: {}
+  externalObjects:
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Astronaut_matmat
+    second: {fileID: 2100000, guid: e99d957e4b7e0694d98da91eb5f0ecc7, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Mat
+    second: {fileID: 2100000, guid: 4dfe3536acdde9a4ab1b9e535aeae575, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Matmat
+    second: {fileID: 2100000, guid: a24fd736e076bd5409569df6934a258f, type: 2}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: mat-complete-finale_optimized
+    second: {fileID: 2800000, guid: 5608b1fbb3a4bd340ad105f26dd57b17, type: 3}
   materials:
     materialImportMode: 2
     materialName: 0
@@ -75,7 +95,8 @@ ModelImporter:
     legacyComputeAllNormalsFromSmoothingGroupsWhenMeshHasBlendShapes: 0
     blendShapeNormalImportMode: 1
     normalSmoothingSource: 0
-  referencedClips: []
+  referencedClips:
+  - d3d706f814453e9408f75d1851c6d0b0
   importAnimation: 1
   humanDescription:
     serializedVersion: 3
