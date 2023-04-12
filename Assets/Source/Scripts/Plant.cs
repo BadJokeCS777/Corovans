@@ -7,6 +7,8 @@ internal class Plant : MonoBehaviour
 {
     [SerializeField] private float _growTime = 3f;
     [SerializeField] private float _targetScale = 1f;
+    [SerializeField] private Transform _model;
+    [SerializeField] private WaterConsumption _waterConsumption;
     [SerializeField] private ObjectProducerZone _producer;
     [SerializeField] private Trigger<StackPresenter> _trigger;
     
@@ -19,14 +21,18 @@ internal class Plant : MonoBehaviour
 
     private void Awake()
     {
-        transform.localScale = Vector3.zero;
+        _model.localScale = Vector3.zero;
         _trigger.Disable();
+        _waterConsumption.Init();
     }
 
     internal void Tick()
     {
+        if (_waterConsumption.Covered == false)
+            return;
+
         _progress += Time.deltaTime / _growTime;
-        transform.localScale = _targetScale * _progress * Vector3.one;
+        _model.localScale = _targetScale * _progress * Vector3.one;
     }
 
     internal void Break()
