@@ -606,7 +606,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _interactionTime: 0.1
   _trigger: {fileID: 1117024796}
-  _template: {fileID: 9107956132152950141, guid: 6eb8cbef9f678db449c1a18cb6774b1a, type: 3}
+  _template: {fileID: -1716893989669430625, guid: 6ae765cd9b10fcf42abff8a1f1c62bc5, type: 3}
 --- !u!1 &618334849
 GameObject:
   m_ObjectHideFlags: 0

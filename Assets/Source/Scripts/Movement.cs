@@ -1,3 +1,4 @@
+using System;
 using Agava.IdleGame.Examples;
 using System.IO.Pipes;
 using UnityEngine;

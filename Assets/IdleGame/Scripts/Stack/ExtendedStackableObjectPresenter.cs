@@ -9,7 +9,7 @@ namespace Agava.IdleGame
         
         protected override void OnAwake(StackableObject stackableObject)
         {
-            SetStackable(new ExtendedStackableObject<T>(stackableObject, _TValue));
+            //CreateStackable(new ExtendedStackableObject<T>(stackableObject, _TValue));
         }
     }
 }

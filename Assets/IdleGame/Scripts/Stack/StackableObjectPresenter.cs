@@ -15,13 +15,13 @@ namespace Agava.IdleGame
 
         private void Awake()
         {
-            SetStackable(new StackableObject(transform, _layer));
+            _stackable = CreateStackable();
             OnAwake(_stackable);
         }
 
-        protected void SetStackable(StackableObject stackable)
+        protected virtual StackableObject CreateStackable()
         {
-            _stackable = stackable;
+            return new StackableObject(transform, _layer);
         }
 
         protected virtual void OnAwake(StackableObject stackableObject) {}
