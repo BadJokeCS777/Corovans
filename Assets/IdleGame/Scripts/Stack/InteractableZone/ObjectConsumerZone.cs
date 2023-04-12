@@ -1,3 +1,4 @@
+using Agava.IdleGame.Model;
 using UnityEngine;
 
 namespace Agava.IdleGame
