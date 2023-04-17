@@ -4,6 +4,7 @@ using UnityEngine;
 
 internal class Patch : MonoBehaviour
 {
+    [SerializeField] private GameObject _model;
     [SerializeField] private StackPresenter _stack;
     [SerializeField] private Trigger<StackPresenter> _trigger;
 
@@ -27,7 +28,9 @@ internal class Patch : MonoBehaviour
             return;
         
         if (_plant.Ready == false)
+        {
             _plant.Tick();
+        }
         else if (_plant.Enabled == false)
         {
             _plant.EnableProducer();
@@ -45,12 +48,14 @@ internal class Patch : MonoBehaviour
         _plant.Break();
         _plant = null;
         
+        _model.SetActive(true);
         _stack.Clear();
         _trigger.Enable();
     }
     
     private void OnAdded(StackableObject rawSeed)
     {
+        _model.SetActive(false);
         _trigger.Disable();
         _plant = Instantiate(((Seed) rawSeed).Plant, transform.position, Quaternion.identity, transform);
     }
