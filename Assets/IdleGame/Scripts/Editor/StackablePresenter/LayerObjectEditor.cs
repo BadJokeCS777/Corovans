@@ -15,7 +15,7 @@ namespace Agava.IdleGameEditor
             if (GUILayout.Button("Add Layer..."))
             {
                 EditorUtility.FocusProjectWindow();
-                var asset = StackableLayers.GetAsset();
+                StackableLayers asset = StackableLayers.GetAsset();
                 EditorGUIUtility.PingObject(asset);
                 Selection.activeObject = asset;
             }

@@ -29,7 +29,7 @@ namespace Agava.IdleGame
 				return -1;
 
 			int mask = 0;
-			var layers = StackableLayerMask.Layers;
+			string[] layers = StackableLayerMask.Layers;
 			for (int index = 0; index < layers.Length; index++)
 			{
 				if ((field & (1 << index)) != 0)
@@ -52,7 +52,7 @@ namespace Agava.IdleGame
 				return -1;
 
 			int field = 0;
-			var layers = StackableLayerMask.Layers;
+			string[] layers = StackableLayerMask.Layers;
 			for (int index = 0; index < layers.Length; index++)
 				if ((mask & (1 << StackableLayerMask.NameToLayer(layers[index]))) != 0)
 					field |= 1 << index;

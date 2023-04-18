@@ -119,13 +119,13 @@ public class StylizedSurfaceEditor : UnityEditor.ShaderGUI {
             }
 
             if (displayName.Contains("[DR_ENABLE_LIGHTMAP_DIR]")) {
-                var dirPitch = _target.GetFloat("_LightmapDirectionPitch");
-                var dirYaw = _target.GetFloat("_LightmapDirectionYaw");
+                float dirPitch = _target.GetFloat("_LightmapDirectionPitch");
+                float dirYaw = _target.GetFloat("_LightmapDirectionYaw");
 
-                var dirPitchRad = dirPitch * Mathf.Deg2Rad;
-                var dirYawRad = dirYaw * Mathf.Deg2Rad;
+                float dirPitchRad = dirPitch * Mathf.Deg2Rad;
+                float dirYawRad = dirYaw * Mathf.Deg2Rad;
                 
-                var direction = new Vector4(Mathf.Sin(dirPitchRad) * Mathf.Sin(dirYawRad), Mathf.Cos(dirPitchRad), 
+                Vector4 direction = new Vector4(Mathf.Sin(dirPitchRad) * Mathf.Sin(dirYawRad), Mathf.Cos(dirPitchRad), 
                                             Mathf.Sin(dirPitchRad) * Mathf.Cos(dirYawRad), 0.0f);
                 _target.SetVector("_LightmapDirection", direction);
             }
@@ -220,9 +220,9 @@ public class StylizedSurfaceEditor : UnityEditor.ShaderGUI {
 
         if (HasProperty("_Surface")) {
             EditorGUI.BeginChangeCheck();
-            var surfaceProp = FindProperty("_Surface");
+            MaterialProperty surfaceProp = FindProperty("_Surface");
             EditorGUI.showMixedValue = surfaceProp.hasMixedValue;
-            var surfaceType = (SurfaceType)surfaceProp.floatValue;
+            SurfaceType surfaceType = (SurfaceType)surfaceProp.floatValue;
             surfaceType = (SurfaceType)EditorGUILayout.EnumPopup("Surface Type", surfaceType);
             if (EditorGUI.EndChangeCheck())
             {
@@ -291,9 +291,9 @@ public class StylizedSurfaceEditor : UnityEditor.ShaderGUI {
             // DR: draw popup.
             if (surfaceType == SurfaceType.Transparent && HasProperty("_Blend")) {
                 EditorGUI.BeginChangeCheck();
-                var blendModeProp = FindProperty("_Blend");
+                MaterialProperty blendModeProp = FindProperty("_Blend");
                 EditorGUI.showMixedValue = blendModeProp.hasMixedValue;
-                var blendMode = (BlendMode)blendModeProp.floatValue;
+                BlendMode blendMode = (BlendMode)blendModeProp.floatValue;
                 blendMode = (BlendMode)EditorGUILayout.EnumPopup("Blend Mode", blendMode);
                 if (EditorGUI.EndChangeCheck())
                 {
@@ -307,9 +307,9 @@ public class StylizedSurfaceEditor : UnityEditor.ShaderGUI {
         if (HasProperty("_Cull")) {
             EditorGUILayout.Separator();
             EditorGUI.BeginChangeCheck();
-            var cullingProp = FindProperty("_Cull");
+            MaterialProperty cullingProp = FindProperty("_Cull");
             EditorGUI.showMixedValue = cullingProp.hasMixedValue;
-            var culling = (RenderFace)cullingProp.floatValue;
+            RenderFace culling = (RenderFace)cullingProp.floatValue;
             culling = (RenderFace)EditorGUILayout.EnumPopup("Render Faces", culling);
             if (EditorGUI.EndChangeCheck())
             {
@@ -321,16 +321,16 @@ public class StylizedSurfaceEditor : UnityEditor.ShaderGUI {
 
         if (HasProperty("_AlphaClip")) {
             EditorGUI.BeginChangeCheck();
-            var alphaClipProp = FindProperty("_AlphaClip");
+            MaterialProperty alphaClipProp = FindProperty("_AlphaClip");
             EditorGUI.showMixedValue = alphaClipProp.hasMixedValue;
-            var alphaClipEnabled = EditorGUILayout.Toggle("Alpha Clipping", alphaClipProp.floatValue == 1);
+            bool alphaClipEnabled = EditorGUILayout.Toggle("Alpha Clipping", alphaClipProp.floatValue == 1);
             if (EditorGUI.EndChangeCheck())
                 alphaClipProp.floatValue = alphaClipEnabled ? 1 : 0;
             EditorGUI.showMixedValue = false;
 
             if (alphaClipProp.floatValue == 1)
             {
-                var alphaCutoffProp = FindProperty("_Cutoff");
+                MaterialProperty alphaCutoffProp = FindProperty("_Cutoff");
                 materialEditor.ShaderProperty(alphaCutoffProp, "Threshold", 1);
             }
         }
@@ -338,25 +338,25 @@ public class StylizedSurfaceEditor : UnityEditor.ShaderGUI {
 
     private void PromptTextureSave(MaterialEditor materialEditor, Func<Texture2D> generate, string propertyName,
         FilterMode filterMode) {
-        var rampTexture = generate();
-        var pngNameNoExtension = string.Format("{0}{1}-ramp", materialEditor.target.name, propertyName);
-        var fullPath =
+        Texture2D rampTexture = generate();
+        string pngNameNoExtension = string.Format("{0}{1}-ramp", materialEditor.target.name, propertyName);
+        string fullPath =
             EditorUtility.SaveFilePanel("Save Ramp Texture", "Assets", pngNameNoExtension, "png");
         if (fullPath.Length > 0) {
             SaveTextureAsPng(rampTexture, fullPath, filterMode);
-            var loadedTexture = LoadTexture(fullPath);
+            Texture2D loadedTexture = LoadTexture(fullPath);
             _target.SetTexture(propertyName, loadedTexture);
         }
     }
 
     private Texture2D GenerateStepTexture() {
         int numSteps = _celShadingNumSteps;
-        var t2d = new Texture2D(numSteps + 1, /*height=*/1, TextureFormat.R8, /*mipChain=*/false) {
+        Texture2D t2d = new Texture2D(numSteps + 1, /*height=*/1, TextureFormat.R8, /*mipChain=*/false) {
             filterMode = FilterMode.Point,
             wrapMode = TextureWrapMode.Clamp
         };
         for (int i = 0; i < numSteps + 1; i++) {
-            var color = Color.white * i / numSteps;
+            Color color = Color.white * i / numSteps;
             t2d.SetPixel(i, 0, color);
         }
 
@@ -367,7 +367,7 @@ public class StylizedSurfaceEditor : UnityEditor.ShaderGUI {
     private Texture2D GenerateCurveTexture() {
         const int width = 256;
         const int height = 1;
-        var lut = new Texture2D(width, height, TextureFormat.R8, /*mipChain=*/false) {
+        Texture2D lut = new Texture2D(width, height, TextureFormat.R8, /*mipChain=*/false) {
             alphaIsTransparency = false,
             wrapMode = TextureWrapMode.Clamp,
             hideFlags = HideFlags.HideAndDontSave,
@@ -377,7 +377,7 @@ public class StylizedSurfaceEditor : UnityEditor.ShaderGUI {
         for (float x = 0; x < width; x++) {
             float value = _gradient.Evaluate(x / width);
             for (float y = 0; y < height; y++) {
-                var color = Color.white * value;
+                Color color = Color.white * value;
                 lut.SetPixel(Mathf.CeilToInt(x), Mathf.CeilToInt(y), color);
             }
         }
@@ -398,7 +398,7 @@ public class StylizedSurfaceEditor : UnityEditor.ShaderGUI {
             importer.textureType = TextureImporterType.SingleChannel;
             importer.textureCompression = TextureImporterCompression.Uncompressed;
             importer.mipmapEnabled = false;
-            var textureSettings = new TextureImporterPlatformSettings {
+            TextureImporterPlatformSettings textureSettings = new TextureImporterPlatformSettings {
                 format = TextureImporterFormat.R8
             };
             importer.SetPlatformTextureSettings(textureSettings);
@@ -415,7 +415,7 @@ public class StylizedSurfaceEditor : UnityEditor.ShaderGUI {
 
     private static Texture2D LoadTexture(string fullPath) {
         string pathRelativeToAssets = ConvertFullPathToAssetPath(fullPath);
-        var loadedTexture = AssetDatabase.LoadAssetAtPath(pathRelativeToAssets, typeof(Texture2D)) as Texture2D;
+        Texture2D loadedTexture = AssetDatabase.LoadAssetAtPath(pathRelativeToAssets, typeof(Texture2D)) as Texture2D;
         if (loadedTexture == null) {
             Debug.LogError(string.Format("[FlatKit] Could not load texture from {0} [{1}].", fullPath,
                 pathRelativeToAssets));

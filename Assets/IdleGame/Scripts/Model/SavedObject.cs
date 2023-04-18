@@ -15,7 +15,7 @@ namespace Agava.IdleGame.Model
 
         public void Save()
         {
-            var jsonString = JsonUtility.ToJson(this as T);
+            string jsonString = JsonUtility.ToJson(this as T);
             PlayerPrefs.SetString(_guid, jsonString);
         }
 
@@ -24,8 +24,8 @@ namespace Agava.IdleGame.Model
             if (PlayerPrefs.HasKey(_guid) == false)
                 return;
 
-            var jsonString = PlayerPrefs.GetString(_guid);
-            var loadedObject = JsonUtility.FromJson(jsonString, typeof(T));
+            string jsonString = PlayerPrefs.GetString(_guid);
+            object loadedObject = JsonUtility.FromJson(jsonString, typeof(T));
 
             OnLoad(loadedObject as T);
         }

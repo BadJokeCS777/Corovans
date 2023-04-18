@@ -6,6 +6,7 @@ using UnityEngine;
 internal class Plant : MonoBehaviour
 {
     [SerializeField] private float _growTime = 3f;
+    [SerializeField] private float _startScale = 0f;
     [SerializeField] private float _targetScale = 1f;
     [SerializeField] private Transform _model;
     [SerializeField] private WaterConsumption _waterConsumption;
@@ -21,7 +22,7 @@ internal class Plant : MonoBehaviour
 
     private void Awake()
     {
-        _model.localScale = Vector3.zero;
+        _model.localScale = Vector3.one * _startScale;
         _trigger.Disable();
         _waterConsumption.Init();
     }
@@ -32,7 +33,7 @@ internal class Plant : MonoBehaviour
             return;
 
         _progress += Time.deltaTime / _growTime;
-        _model.localScale = _targetScale * _progress * Vector3.one;
+        _model.localScale = Mathf.Lerp(_startScale,_targetScale, _progress) * Vector3.one;
     }
 
     internal void Break()

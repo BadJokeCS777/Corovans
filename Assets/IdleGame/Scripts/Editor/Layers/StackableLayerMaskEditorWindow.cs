@@ -10,7 +10,7 @@ namespace Agava.IdleGameEditor
         [MenuItem("IdleGame/Layers")]
         public static void Open()
         {
-            var asset = AssetDatabase.LoadAssetAtPath<StackableLayers>(AssetPath);
+            StackableLayers asset = AssetDatabase.LoadAssetAtPath<StackableLayers>(AssetPath);
 
             if (asset == null)
             {

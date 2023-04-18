@@ -1,5 +1,4 @@
-﻿using System;
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.AI;
 
 internal class Alien : MonoBehaviour
@@ -14,8 +13,6 @@ internal class Alien : MonoBehaviour
 
     private float _interval = 0f;
     private Patch _target;
-
-    public event Action<Alien> Died;
 
     public bool Alive => _health > 0;
 
@@ -60,7 +57,7 @@ internal class Alien : MonoBehaviour
 
         if (_health <= 0)
         {
-            Died?.Invoke(this);
+            _agent.enabled = false;
             _animator.SetDie();
         }
     }

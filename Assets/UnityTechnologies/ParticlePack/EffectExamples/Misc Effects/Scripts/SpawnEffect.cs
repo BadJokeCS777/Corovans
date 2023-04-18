@@ -18,7 +18,7 @@ public class SpawnEffect : MonoBehaviour {
         _renderer = GetComponent<Renderer>();
         ps = GetComponentInChildren <ParticleSystem>();
 
-        var main = ps.main;
+        ParticleSystem.MainModule main = ps.main;
         main.duration = spawnEffectTime;
 
         ps.Play();

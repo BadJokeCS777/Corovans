@@ -12,7 +12,7 @@ namespace Agava.IdleGame
             if (enteredStack.Count == 0)
                 return false;
 
-            foreach (var item in enteredStack.Data)
+            foreach (StackableObject item in enteredStack.Data)
                 if (_selfStack.CanAddToStack(item.Layer))
                     return true;
 
@@ -22,7 +22,7 @@ namespace Agava.IdleGame
         protected override void InteractAction(StackPresenter enteredStack)
         {
             int index = 0;
-            foreach (var item in enteredStack.Data)
+            foreach (StackableObject item in enteredStack.Data)
             {
                 if (_selfStack.CanAddToStack(item.Layer))
                     break;
@@ -33,7 +33,7 @@ namespace Agava.IdleGame
             if (index >= enteredStack.Count)
                 return;// throw new InvalidOperationException();
 
-            var stackable = enteredStack.RemoveAt(index);
+            StackableObject stackable = enteredStack.RemoveAt(index);
             _selfStack.AddToStack(stackable);
         }
     }

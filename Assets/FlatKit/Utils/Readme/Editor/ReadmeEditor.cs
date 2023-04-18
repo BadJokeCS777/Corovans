@@ -67,8 +67,8 @@ public class ReadmeEditor : Editor {
                 if (_versionLatest == null) {
                     EditorGUILayout.HelpBox($"Checking the latest version...", MessageType.None);
                 } else {
-                    var local = Version.Parse(_readme.FlatKitVersion);
-                    var remote = Version.Parse(_versionLatest);
+                    Version local = Version.Parse(_readme.FlatKitVersion);
+                    Version remote = Version.Parse(_versionLatest);
                     if (local >= remote) {
                         EditorGUILayout.HelpBox($"You have the latest version! {_readme.FlatKitVersion}.",
                             MessageType.Info);
@@ -216,8 +216,8 @@ public class ReadmeEditor : Editor {
 
             GUILayout.EndHorizontal();
 
-            var debugInfo = GetDebugInfo();
-            foreach (var s in debugInfo) {
+            string[] debugInfo = GetDebugInfo();
+            foreach (string s in debugInfo) {
                 EditorGUILayout.LabelField($"    " + s, EditorStyles.miniLabel);
             }
 
@@ -226,7 +226,7 @@ public class ReadmeEditor : Editor {
     }
 
     private string[] GetDebugInfo() {
-        var info = new List<string> {
+        List<string> info = new List<string> {
             $"{AssetName} version {_readme.FlatKitVersion}",
             $"Unity {_readme.UnityVersion}",
             $"Dev platform: {Application.platform}",
@@ -236,10 +236,10 @@ public class ReadmeEditor : Editor {
             $"Color space: {PlayerSettings.colorSpace}"
         };
 
-        var qualityConfig = QualitySettings.renderPipeline == null ? "N/A" : QualitySettings.renderPipeline.name;
+        string qualityConfig = QualitySettings.renderPipeline == null ? "N/A" : QualitySettings.renderPipeline.name;
         info.Add($"Quality config: {qualityConfig}");
 
-        var graphicsConfig = GraphicsSettings.currentRenderPipeline == null
+        string graphicsConfig = GraphicsSettings.currentRenderPipeline == null
             ? "N/A"
             : GraphicsSettings.currentRenderPipeline.name;
         info.Add($"Graphics config: {graphicsConfig}");
@@ -336,7 +336,7 @@ public class ReadmeEditor : Editor {
             return;
         }
 
-        var pipelineAsset = AssetDatabase.LoadAssetAtPath<RenderPipelineAsset>(path);
+        RenderPipelineAsset pipelineAsset = AssetDatabase.LoadAssetAtPath<RenderPipelineAsset>(path);
         if (pipelineAsset == null) {
             Debug.LogError($"[{AssetName}] Couldn't load the URP pipeline asset.");
             return;
@@ -358,9 +358,9 @@ public class ReadmeEditor : Editor {
     }
 
     private void ChangePipelineAssetAllQualityLevels(RenderPipelineAsset pipelineAsset) {
-        var originalQualityLevel = QualitySettings.GetQualityLevel();
+        int originalQualityLevel = QualitySettings.GetQualityLevel();
 
-        var logString = $"<b>[{AssetName}]</b> Set the render pipeline asset for the quality levels:";
+        string logString = $"<b>[{AssetName}]</b> Set the render pipeline asset for the quality levels:";
 
         for (int i = 0; i < QualitySettings.names.Length; i++) {
             logString += $"\n\t{QualitySettings.names[i]}";

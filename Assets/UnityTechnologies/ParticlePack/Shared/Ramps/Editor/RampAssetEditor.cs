@@ -15,16 +15,16 @@ using UnityEngine;
         }
         void Bake()
         {
-            var r = target as RampAsset;
-            var t = new Texture2D(r.size, r.size, TextureFormat.ARGB32, mipChain: true);
-            var p = t.GetPixels();
-            for (var x = 0; x < r.size; x++)
-                for (var y = 0; y < r.size; y++)
+            RampAsset r = target as RampAsset;
+            Texture2D t = new Texture2D(r.size, r.size, TextureFormat.ARGB32, mipChain: true);
+            Color[] p = t.GetPixels();
+            for (int x = 0; x < r.size; x++)
+                for (int y = 0; y < r.size; y++)
                     p[r.up ? y + (r.size - x - 1) * r.size : x + y * r.size] = r.gradient.Evaluate(x * 1f / r.size);
             t.SetPixels(p);
             t.Apply();
-            var bytes = t.EncodeToPNG();
-            var path = AssetDatabase.GetAssetPath(r).Replace(".asset", "") + ".png";
+            byte[] bytes = t.EncodeToPNG();
+            string path = AssetDatabase.GetAssetPath(r).Replace(".asset", "") + ".png";
             if (!r.overwriteExisting)
                 path = AssetDatabase.GenerateUniqueAssetPath(path);
             System.IO.File.WriteAllBytes(path, bytes);

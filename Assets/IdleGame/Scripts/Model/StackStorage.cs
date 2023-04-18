@@ -60,7 +60,7 @@ namespace Agava.IdleGame.Model
             if (index < 0 || index >= _data.Count)
                 throw new ArgumentOutOfRangeException(nameof(index));
 
-            var stackable = _data[index];
+            StackableObject stackable = _data[index];
 
             _data.RemoveAt(index);
             Removed?.Invoke(stackable);

@@ -5,6 +5,7 @@ using UnityEditor;
 using System;
 using System.IO;
 using System.Reflection;
+using Object = UnityEngine.Object;
 
 [CustomEditor(typeof(Readme))]
 [InitializeOnLoad]
@@ -23,7 +24,7 @@ public class ReadmeEditor : Editor {
 	{
 		if (!SessionState.GetBool(kShowedReadmeSessionStateName, false ))
 		{
-			var readme = SelectReadme();
+			Readme readme = SelectReadme();
 			SessionState.SetBool(kShowedReadmeSessionStateName, true);
 			
 			if (readme && !readme.loadedLayout)
@@ -36,19 +37,19 @@ public class ReadmeEditor : Editor {
 	
 	static void LoadLayout()
 	{
-		var assembly = typeof(EditorApplication).Assembly; 
-		var windowLayoutType = assembly.GetType("UnityEditor.WindowLayout", true);
-		var method = windowLayoutType.GetMethod("LoadWindowLayout", BindingFlags.Public | BindingFlags.Static);
+		Assembly assembly = typeof(EditorApplication).Assembly; 
+		Type windowLayoutType = assembly.GetType("UnityEditor.WindowLayout", true);
+		MethodInfo method = windowLayoutType.GetMethod("LoadWindowLayout", BindingFlags.Public | BindingFlags.Static);
 		method.Invoke(null, new object[]{Path.Combine(Application.dataPath, "TutorialInfo/Layout.wlt"), false});
 	}
 	
 	[MenuItem("Tutorial/Show Tutorial Instructions")]
 	static Readme SelectReadme() 
 	{
-		var ids = AssetDatabase.FindAssets("Readme t:Readme");
+		string[] ids = AssetDatabase.FindAssets("Readme t:Readme");
 		if (ids.Length == 1)
 		{
-			var readmeObject = AssetDatabase.LoadMainAssetAtPath(AssetDatabase.GUIDToAssetPath(ids[0]));
+			Object readmeObject = AssetDatabase.LoadMainAssetAtPath(AssetDatabase.GUIDToAssetPath(ids[0]));
 			
 			Selection.objects = new UnityEngine.Object[]{readmeObject};
 			
@@ -63,10 +64,10 @@ public class ReadmeEditor : Editor {
 	
 	protected override void OnHeaderGUI()
 	{
-		var readme = (Readme)target;
+		Readme readme = (Readme)target;
 		Init();
 		
-		var iconWidth = Mathf.Min(EditorGUIUtility.currentViewWidth/3f - 20f, 128f);
+		float iconWidth = Mathf.Min(EditorGUIUtility.currentViewWidth/3f - 20f, 128f);
 		
 		GUILayout.BeginHorizontal("In BigTitle");
 		{
@@ -78,10 +79,10 @@ public class ReadmeEditor : Editor {
 	
 	public override void OnInspectorGUI()
 	{
-		var readme = (Readme)target;
+		Readme readme = (Readme)target;
 		Init();
 		
-		foreach (var section in readme.sections)
+		foreach (Readme.Section section in readme.sections)
 		{
 			if (!string.IsNullOrEmpty(section.heading))
 			{
@@ -142,7 +143,7 @@ public class ReadmeEditor : Editor {
 	
 	bool LinkLabel (GUIContent label, params GUILayoutOption[] options)
 	{
-		var position = GUILayoutUtility.GetRect(label, LinkStyle, options);
+		Rect position = GUILayoutUtility.GetRect(label, LinkStyle, options);
 
 		Handles.BeginGUI ();
 		Handles.color = LinkStyle.normal.textColor;

@@ -27,16 +27,16 @@ public class ProximityActivate : MonoBehaviour
 
     bool IsTargetNear()
     {
-        var distanceDelta = distanceActivator.position - activator.position;
+        Vector3 distanceDelta = distanceActivator.position - activator.position;
         if (distanceDelta.sqrMagnitude < distance * distance)
         {
             if (lookAtActivator != null)
             {
-                var lookAtActivatorDelta = lookAtActivator.position - activator.position;
+                Vector3 lookAtActivatorDelta = lookAtActivator.position - activator.position;
                 if (Vector3.Dot(activator.forward, lookAtActivatorDelta.normalized) > 0.95f)
                     return true;
             }
-            var lookAtDelta = target.transform.position - activator.position;
+            Vector3 lookAtDelta = target.transform.position - activator.position;
             if (Vector3.Dot(activator.forward, lookAtDelta.normalized) > 0.95f)
                 return true;
         }

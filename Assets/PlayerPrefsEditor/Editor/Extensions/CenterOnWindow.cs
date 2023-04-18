@@ -1,8 +1,10 @@
 ﻿using System;
 using System.Linq;
 using System.Collections.Generic;
+using System.Reflection;
 using UnityEngine;
 using UnityEditor;
+using Object = UnityEngine.Object;
 
 namespace BgTools.Extensions
 {
@@ -11,12 +13,12 @@ namespace BgTools.Extensions
     {
         private static Type[] GetAllDerivedTypes(this AppDomain aAppDomain, Type aType)
         {
-            var result = new List<Type>();
-            var assemblies = aAppDomain.GetAssemblies();
+            List<Type> result = new List<Type>();
+            Assembly[] assemblies = aAppDomain.GetAssemblies();
 
-            foreach (var assembly in assemblies)
+            foreach (Assembly assembly in assemblies)
             {
-                var types = assembly.GetTypes();
+                Type[] types = assembly.GetTypes();
                 foreach (Type type in types)
                 {
                     if (type.IsSubclassOf(aType))
@@ -28,21 +30,21 @@ namespace BgTools.Extensions
 
         public static Rect GetEditorMainWindowPos(EditorWindow relatedWin = null)
         {
-            var containerWinType = AppDomain.CurrentDomain.GetAllDerivedTypes(typeof(ScriptableObject)).Where(t => t.Name == "ContainerWindow").FirstOrDefault();
+            Type containerWinType = AppDomain.CurrentDomain.GetAllDerivedTypes(typeof(ScriptableObject)).Where(t => t.Name == "ContainerWindow").FirstOrDefault();
 
             if (containerWinType == null)
                 throw new MissingMemberException("Can't find internal type ContainerWindow. Maybe something has changed inside Unity");
 
-            var showModeField = containerWinType.GetField("m_ShowMode", System.Reflection.BindingFlags.NonPublic | System.Reflection.BindingFlags.Instance);
-            var positionProperty = containerWinType.GetProperty("position", System.Reflection.BindingFlags.Public | System.Reflection.BindingFlags.Instance);
+            FieldInfo showModeField = containerWinType.GetField("m_ShowMode", System.Reflection.BindingFlags.NonPublic | System.Reflection.BindingFlags.Instance);
+            PropertyInfo positionProperty = containerWinType.GetProperty("position", System.Reflection.BindingFlags.Public | System.Reflection.BindingFlags.Instance);
 
             if (showModeField == null || positionProperty == null)
                 throw new MissingFieldException("Can't find internal fields 'm_ShowMode' or 'position'. Maybe something has changed inside Unity");
 
-            var windows = Resources.FindObjectsOfTypeAll(containerWinType);
-            foreach (var win in windows)
+            Object[] windows = Resources.FindObjectsOfTypeAll(containerWinType);
+            foreach (Object win in windows)
             {
-                var showmode = (int)showModeField.GetValue(win);
+                int showmode = (int)showModeField.GetValue(win);
 
                 // Given window
                 //if (relatedWin != null && relatedWin.GetInstanceID() == win.GetInstanceID())
@@ -54,7 +56,7 @@ namespace BgTools.Extensions
                 // Main window
                 if (showmode == 4)
                 {
-                    var pos = (Rect)positionProperty.GetValue(win, null);
+                    Rect pos = (Rect)positionProperty.GetValue(win, null);
                     return pos;
                 }
             }
@@ -77,9 +79,9 @@ namespace BgTools.Extensions
         /// <param name="relatedWin">Referance window for the positioning.</param>
         public static void CenterOnWindow(this EditorWindow window, EditorWindow relatedWin)
         {
-            var main = GetEditorMainWindowPos(relatedWin);
+            Rect main = GetEditorMainWindowPos(relatedWin);
 
-            var pos = window.position;
+            Rect pos = window.position;
             float w = (main.width - pos.width) * 0.5f;
             float h = (main.height - pos.height) * 0.5f;
             pos.x = main.x + w;

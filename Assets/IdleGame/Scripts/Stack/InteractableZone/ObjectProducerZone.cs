@@ -18,7 +18,7 @@ namespace Agava.IdleGame
 
         protected override void InteractAction(StackPresenter enteredStack)
         {
-            var inst = Instantiate(_template, transform.position, Quaternion.identity);
+            StackableObjectPresenter inst = Instantiate(_template, transform.position, Quaternion.identity);
             enteredStack.AddToStack(inst.Stackable);
             
             GaveStackableObject?.Invoke(inst.Stackable);

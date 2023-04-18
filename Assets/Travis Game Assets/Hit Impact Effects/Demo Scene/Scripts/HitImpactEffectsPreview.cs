@@ -143,7 +143,7 @@ namespace TravisGameAssets
 		{
 			cameraRotating = !cameraRotating;
 			
-			var newColor = rotationIcon.color;
+			Color newColor = rotationIcon.color;
 			newColor.a = cameraRotating ? 1f : 0.33f;
 			rotationIcon.color = newColor;
 		}
@@ -154,7 +154,7 @@ namespace TravisGameAssets
 			
 			floor.enabled = floorVisible;
 			
-			var newColor = floorIcon.color;
+			Color newColor = floorIcon.color;
 			newColor.a = floorVisible ? 1f : 0.33f;
 			floorIcon.color = newColor;
 		}
@@ -169,7 +169,7 @@ namespace TravisGameAssets
 				Time.timeScale = 1.0f;
 			}
 		
-			var newColor = slowMotionIcon.color;
+			Color newColor = slowMotionIcon.color;
 			newColor.a = slowMotion ? 1f : 0.33f;
 			slowMotionIcon.color = newColor;
 		}

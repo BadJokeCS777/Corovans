@@ -25,7 +25,7 @@ namespace Agava.IdleGame
 
             for (int i = 0; i < _drawCount; i++)
             {
-                var position = transform.TransformPoint(Vector3.right * i * ( _space + _drawSphereRadius * 2));
+                Vector3 position = transform.TransformPoint(Vector3.right * i * ( _space + _drawSphereRadius * 2));
                 Gizmos.DrawSphere(position, _drawSphereRadius);
             }
         }
@@ -38,12 +38,12 @@ namespace Agava.IdleGame
 
         protected override void Sort(IEnumerable<StackableObject> unsortedStackables, float animationDuration)
         {
-            var sortedList = unsortedStackables.OrderBy(stackable => stackable.View.localPosition.x);
+            IOrderedEnumerable<StackableObject> sortedList = unsortedStackables.OrderBy(stackable => stackable.View.localPosition.x);
 
-            var iteration = 0;
-            foreach (var item in sortedList)
+            int iteration = 0;
+            foreach (StackableObject item in sortedList)
             {
-                var position = Vector3.right * iteration * (item.View.lossyScale.x + _space);
+                Vector3 position = Vector3.right * iteration * (item.View.lossyScale.x + _space);
 
                 item.View.DOComplete(true);
                 item.View.DOLocalMove(position, animationDuration);

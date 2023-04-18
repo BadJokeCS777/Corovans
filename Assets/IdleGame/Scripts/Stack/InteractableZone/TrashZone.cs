@@ -11,7 +11,7 @@ namespace Agava.IdleGame
 
         protected override bool CanInteract(StackPresenter enteredStack)
         {
-            foreach (var item in enteredStack.Data)
+            foreach (StackableObject item in enteredStack.Data)
                 if (_layers.ContainsLayer(item.Layer))
                     return true;
 
@@ -21,7 +21,7 @@ namespace Agava.IdleGame
         protected override void InteractAction(StackPresenter enteredStack)
         {
             StackableObject removedObject = null;
-            foreach (var item in enteredStack.Data)
+            foreach (StackableObject item in enteredStack.Data)
             {
                 if (_layers.ContainsLayer(item.Layer))
                 {

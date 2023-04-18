@@ -145,7 +145,7 @@ namespace BgTools.PlayerPrefsEditor
         {
             if (prefEntryHolder == null)
             {
-                var tmp = Resources.FindObjectsOfTypeAll<PreferenceEntryHolder>();
+                PreferenceEntryHolder[] tmp = Resources.FindObjectsOfTypeAll<PreferenceEntryHolder>();
                 if (tmp.Length > 0)
                 {
                     prefEntryHolder = tmp[0];
@@ -258,7 +258,7 @@ namespace BgTools.PlayerPrefsEditor
             };
             userDefList.onAddDropdownCallback = (Rect buttonRect, ReorderableList l) =>
             {
-                var menu = new GenericMenu();
+                GenericMenu menu = new GenericMenu();
                 foreach (PreferenceEntry.PrefTypes type in Enum.GetValues(typeof(PreferenceEntry.PrefTypes)))
                 {
                     menu.AddItem(new GUIContent(type.ToString()), false, () =>
@@ -297,7 +297,7 @@ namespace BgTools.PlayerPrefsEditor
             unityDefList.drawElementBackgroundCallback = OnDrawElementBackgroundCallback;
             unityDefList.drawElementCallback = (Rect rect, int index, bool isActive, bool isFocused) =>
             {
-                var element = unityDefList.serializedProperty.GetArrayElementAtIndex(index);
+                SerializedProperty element = unityDefList.serializedProperty.GetArrayElementAtIndex(index);
                 SerializedProperty key = element.FindPropertyRelative("m_key");
                 SerializedProperty type = element.FindPropertyRelative("m_typeSelection");
 
@@ -539,7 +539,7 @@ namespace BgTools.PlayerPrefsEditor
 
             foreach (string key in keySource)
             {
-                var entry = new PreferenceEntry();
+                PreferenceEntry entry = new PreferenceEntry();
                 entry.m_key = key;
 
                 string s = PlayerPrefs.GetString(key, ERROR_VALUE_STR);

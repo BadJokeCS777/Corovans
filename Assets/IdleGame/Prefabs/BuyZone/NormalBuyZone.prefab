@@ -460,5 +460,5 @@ MonoBehaviour:
   _totalCost: 100
   _trigger: {fileID: 6964897121847196920}
   _view: {fileID: 6964897121920514516}
-  _unlockable: {fileID: 0}
+  _unlockables: []
   _alwaysUnlocked: 0

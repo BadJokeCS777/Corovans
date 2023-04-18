@@ -11,7 +11,7 @@ namespace Agava.IdleGame
     {
         public override void OnGUI(Rect position, SerializedProperty property, GUIContent label)
         {
-            var asset = StackableLayers.GetAsset();
+            StackableLayers asset = StackableLayers.GetAsset();
             property.intValue = EditorGUI.Popup(position, label.text, property.intValue, asset.AllLayers);
         }
     }

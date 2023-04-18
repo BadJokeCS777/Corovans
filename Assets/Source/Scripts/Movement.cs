@@ -1,6 +1,4 @@
-using System;
 using Agava.IdleGame.Examples;
-using System.IO.Pipes;
 using UnityEngine;
 using UnityEngine.AI;
 
@@ -22,7 +20,6 @@ internal class Movement : MonoBehaviour
         float finalSpeed = _speed * rawDirection.magnitude;
 
         _animator.SetSpeed(finalSpeed);
-        _agent.SetDestination(transform.position + rawDirection.normalized);
         _agent.Move(finalSpeed * Time.deltaTime * rawDirection);
 
         if (finalSpeed > 0f)

@@ -28,7 +28,7 @@ namespace Agava.IdleGame
                 {
                     for (int z = 0; z < _size.z; z++)
                     {
-                        var position = transform.TransformPoint(
+                        Vector3 position = transform.TransformPoint(
                             new Vector3(x * _distanceBetweenObjects.x, y * _distanceBetweenObjects.y, z * _distanceBetweenObjects.z));
 
                         Gizmos.DrawSphere(position, 0.2f);
@@ -40,7 +40,7 @@ namespace Agava.IdleGame
 
         protected override Vector3 CalculateAddEndPosition(Transform container, Transform stackable)
         {
-            var index = container.childCount;
+            int index = container.childCount;
 
             return Vector3.Scale(PositionByIndex(index), _distanceBetweenObjects);
         }
@@ -48,9 +48,9 @@ namespace Agava.IdleGame
         protected override void Sort(IEnumerable<StackableObject> unsortedStackables, float animationDuration)
         {
             int index = 0;
-            foreach (var stackable in unsortedStackables)
+            foreach (StackableObject stackable in unsortedStackables)
             {
-                var position = Vector3.Scale(PositionByIndex(index), _distanceBetweenObjects);
+                Vector3 position = Vector3.Scale(PositionByIndex(index), _distanceBetweenObjects);
 
                 stackable.View.DOComplete(true);
                 stackable.View.DOLocalMove(position, animationDuration);
@@ -61,9 +61,9 @@ namespace Agava.IdleGame
 
         private Vector3 PositionByIndex(int index)
         {
-            var x = index % _size.x;
-            var y = index / (_size.x * _size.z);
-            var z = (index / _size.x) % _size.z;
+            int x = index % _size.x;
+            int y = index / (_size.x * _size.z);
+            int z = (index / _size.x) % _size.z;
 
             return new Vector3(x, y, z);
         }

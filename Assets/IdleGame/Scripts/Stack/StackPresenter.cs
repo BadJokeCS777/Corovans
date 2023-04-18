@@ -68,7 +68,7 @@ namespace Agava.IdleGame
 
         public StackableObject RemoveAt(int index)
         {
-            var stackable = _stack.RemoveAt(index);
+            StackableObject stackable = _stack.RemoveAt(index);
             _view.Remove(stackable);
 
             Removed?.Invoke(stackable);
@@ -90,7 +90,7 @@ namespace Agava.IdleGame
                 throw new ArgumentException($"Stack doesn't contains layer: {layer}");
             }
 
-            var stackable = _stack.RemoveByLayer(layer);
+            StackableObject stackable = _stack.RemoveByLayer(layer);
             _view.Remove(stackable);
 
             Removed?.Invoke(stackable);

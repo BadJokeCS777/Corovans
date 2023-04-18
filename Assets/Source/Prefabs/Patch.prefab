@@ -1204,11 +1204,27 @@ PrefabInstance:
     m_TransformParent: {fileID: 8909575345432915483}
     m_Modifications:
     - target: {fileID: 685753910851761756, guid: 3c0104680d8e68a4f8a8403186388e2c, type: 3}
+      propertyPath: m_text
+      value: 10 <sprite=0>
+      objectReference: {fileID: 0}
+    - target: {fileID: 685753910851761756, guid: 3c0104680d8e68a4f8a8403186388e2c, type: 3}
       propertyPath: m_overflowMode
       value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 6964897122084053480, guid: 3c0104680d8e68a4f8a8403186388e2c, type: 3}
+      propertyPath: _totalCost
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 6964897122084053480, guid: 3c0104680d8e68a4f8a8403186388e2c, type: 3}
       propertyPath: _unlockable
+      value: 
+      objectReference: {fileID: 6331858154261747025}
+    - target: {fileID: 6964897122084053480, guid: 3c0104680d8e68a4f8a8403186388e2c, type: 3}
+      propertyPath: _unlockables.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6964897122084053480, guid: 3c0104680d8e68a4f8a8403186388e2c, type: 3}
+      propertyPath: _unlockables.Array.data[0]
       value: 
       objectReference: {fileID: 6331858154261747025}
     - target: {fileID: 6964897122084053481, guid: 3c0104680d8e68a4f8a8403186388e2c, type: 3}
@@ -1258,6 +1274,22 @@ PrefabInstance:
     - target: {fileID: 6964897122084053495, guid: 3c0104680d8e68a4f8a8403186388e2c, type: 3}
       propertyPath: m_Name
       value: NormalBuyZone
+      objectReference: {fileID: 0}
+    - target: {fileID: 7765756317995220759, guid: 3c0104680d8e68a4f8a8403186388e2c, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 0.76
+      objectReference: {fileID: 0}
+    - target: {fileID: 7765756317995220759, guid: 3c0104680d8e68a4f8a8403186388e2c, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 0.76
+      objectReference: {fileID: 0}
+    - target: {fileID: 7765756317995220759, guid: 3c0104680d8e68a4f8a8403186388e2c, type: 3}
+      propertyPath: m_LocalScale.z
+      value: 0.76
+      objectReference: {fileID: 0}
+    - target: {fileID: 7765756317995220759, guid: 3c0104680d8e68a4f8a8403186388e2c, type: 3}
+      propertyPath: m_ConstrainProportionsScale
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 9164767822023315223, guid: 3c0104680d8e68a4f8a8403186388e2c, type: 3}
       propertyPath: m_SizeDelta.x

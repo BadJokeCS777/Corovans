@@ -9,6 +9,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 8459224187249299753}
+  - component: {fileID: 6524749988736850064}
   m_Layer: 0
   m_Name: Fence
   m_TagString: Untagged
@@ -33,6 +34,19 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &6524749988736850064
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8459224187249299752}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9be3090c7fe625e40a717459ca00c406, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _mapRoot: {fileID: 8459224187249299752}
 --- !u!1001 &8459224186426725847
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -150,6 +164,10 @@ PrefabInstance:
     m_TransformParent: {fileID: 8459224187249299753}
     m_Modifications:
     - target: {fileID: 685753910851761756, guid: 3c0104680d8e68a4f8a8403186388e2c, type: 3}
+      propertyPath: m_text
+      value: 25 <sprite=0>
+      objectReference: {fileID: 0}
+    - target: {fileID: 685753910851761756, guid: 3c0104680d8e68a4f8a8403186388e2c, type: 3}
       propertyPath: m_fontSize
       value: 5
       objectReference: {fileID: 0}
@@ -174,7 +192,19 @@ PrefabInstance:
       value: 0.4
       objectReference: {fileID: 0}
     - target: {fileID: 6964897122084053480, guid: 3c0104680d8e68a4f8a8403186388e2c, type: 3}
+      propertyPath: _totalCost
+      value: 25
+      objectReference: {fileID: 0}
+    - target: {fileID: 6964897122084053480, guid: 3c0104680d8e68a4f8a8403186388e2c, type: 3}
       propertyPath: _unlockable
+      value: 
+      objectReference: {fileID: 2767370543872799532}
+    - target: {fileID: 6964897122084053480, guid: 3c0104680d8e68a4f8a8403186388e2c, type: 3}
+      propertyPath: _unlockables.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6964897122084053480, guid: 3c0104680d8e68a4f8a8403186388e2c, type: 3}
+      propertyPath: _unlockables.Array.data[0]
       value: 
       objectReference: {fileID: 2767370543872799532}
     - target: {fileID: 6964897122084053481, guid: 3c0104680d8e68a4f8a8403186388e2c, type: 3}

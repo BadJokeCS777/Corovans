@@ -11,7 +11,7 @@ namespace Agava.IdleGame
 
         public override GameObject Unlock(Transform parent, bool onLoad, string guid)
         {
-            var inst = Instantiate(_template, parent);
+            T inst = Instantiate(_template, parent);
             Unlocked?.Invoke(inst, onLoad, guid);
 
             return inst.gameObject;

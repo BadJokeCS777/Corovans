@@ -16,7 +16,7 @@ namespace Agava.IdleGameEditor
         {
             _layers = target as StackableLayers;
 
-            var array = _layers.GetType()
+            FieldInfo array = _layers.GetType()
                 .GetFields(BindingFlags.Instance | BindingFlags.NonPublic)
                 .First(field => field.FieldType == typeof(string[]));
             _layersArray = serializedObject.FindProperty(array.Name);

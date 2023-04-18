@@ -2,6 +2,7 @@ using System;
 using JetBrains.Annotations;
 using UnityEditor;
 using UnityEditor.PackageManager;
+using UnityEditor.PackageManager.Requests;
 using UnityEngine;
 using PackageInfo = UnityEditor.PackageManager.PackageInfo;
 
@@ -53,14 +54,14 @@ public class FlatKitReadme : ScriptableObject {
         }
 
         string path = AssetDatabase.GUIDToAssetPath(StylizedShaderGuid.ToString());
-        var flatKitSourceAsset = AssetDatabase.LoadAssetAtPath<Shader>(path);
+        Shader flatKitSourceAsset = AssetDatabase.LoadAssetAtPath<Shader>(path);
         FlatKitInstalled = flatKitSourceAsset != null;
 
         UnityVersion = Application.unityVersion;
     }
 
     private PackageCollection GetPackageList() {
-        var listRequest = Client.List(true);
+        ListRequest listRequest = Client.List(true);
 
         while (listRequest.Status == StatusCode.InProgress) continue;
 

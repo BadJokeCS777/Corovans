@@ -2,6 +2,7 @@ using System.Collections;
 using UnityEngine;
 using UnityEngine.Events;
 using Agava.IdleGame.Model;
+using UnityEngine.Serialization;
 
 namespace Agava.IdleGame
 {
@@ -11,7 +12,7 @@ namespace Agava.IdleGame
         [SerializeField] private int _totalCost;
         [SerializeField] private Trigger<SoftCurrencyHolder> _trigger;
         [SerializeField] private BuyZoneView _view;
-        [SerializeField] private UnlockableObject _unlockable;
+        [SerializeField] private UnlockableObject[] _unlockables;
 
         private BuyZone _buyZone;
         private Coroutine _tryBuy;
@@ -20,7 +21,6 @@ namespace Agava.IdleGame
         public event UnityAction<BuyZonePresenter> Unlocked;
 
         public int TotalCost => _totalCost;
-        public UnlockableObject UnlockableObject => _unlockable;
         public bool IsUnlocked => _buyZone != null && _buyZone.IsUnlocked;
 
         private void OnValidate()
@@ -88,7 +88,11 @@ namespace Agava.IdleGame
         {
             _trigger.Disable();
             _view.Hide();
-            _unlockable.Unlock(transform, onLoad, GUID);
+
+            foreach (UnlockableObject unlockable in _unlockables)
+            {
+                unlockable.Unlock(transform, onLoad, GUID);
+            }
 
             Unlocked?.Invoke(this);
         }

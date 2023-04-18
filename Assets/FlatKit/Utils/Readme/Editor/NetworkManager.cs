@@ -14,7 +14,7 @@ public static class NetworkManager {
 #else
             if (!request.isNetworkError && !request.isHttpError) {
 #endif
-                var text = request.downloadHandler.text;
+                string text = request.downloadHandler.text;
                 callback(text);
             } else {
                 Debug.LogError($"[Flat Kit] {request.error}: {request.downloadHandler.text}.");
@@ -28,7 +28,7 @@ public static class NetworkManager {
         }
 
         _request = UnityWebRequest.Get(url);
-        var op = _request.SendWebRequest();
+        UnityWebRequestAsyncOperation op = _request.SendWebRequest();
         op.completed += operation => {
             callback(_request);
             _request.Dispose();

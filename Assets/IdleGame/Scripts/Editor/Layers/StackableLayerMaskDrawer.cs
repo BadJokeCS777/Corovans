@@ -16,11 +16,11 @@ namespace Agava.IdleGameEditor
 
         public override void OnGUI(Rect position, SerializedProperty property, GUIContent label)
         {
-            var field = typeof(StackableLayerMask)
+            FieldInfo field = typeof(StackableLayerMask)
                 .GetFields(BindingFlags.NonPublic | BindingFlags.Instance)
                 .First(field => field.FieldType == typeof(int));
 
-            var value = property.FindPropertyRelative(field.Name);
+            SerializedProperty value = property.FindPropertyRelative(field.Name);
 
             EditorGUI.BeginProperty(position, label, property);
             {

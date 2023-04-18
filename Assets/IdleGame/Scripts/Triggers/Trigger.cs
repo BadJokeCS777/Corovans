@@ -81,7 +81,7 @@ namespace Agava.IdleGame
             
             _view?.RenderDisable();
 
-            foreach (var triggered in _enteredObjects)
+            foreach (KeyValuePair<Collider, T> triggered in _enteredObjects)
                 Exit?.Invoke(triggered.Value);
 
             _enteredObjects.Clear();

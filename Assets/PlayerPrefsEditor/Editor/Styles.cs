@@ -26,7 +26,7 @@ namespace BgTools.Utils
 
             Color32 c = GetColor(pColorRGBA);
 
-            var texture = new Texture2D(4, 4);
+            Texture2D texture = new Texture2D(4, 4);
             for (int x = 0; x < 4; x++)
                 for (int y = 0; y < 4; y++)
                     texture.SetPixel(x, y, c);

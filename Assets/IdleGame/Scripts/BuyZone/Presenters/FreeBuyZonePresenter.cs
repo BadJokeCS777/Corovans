@@ -37,7 +37,7 @@ namespace Agava.IdleGame
 
         private void OnRewardButtonClicked()
         {
-            var rewardedAdShown = true; // Implement you'r show reward ad logic
+            bool rewardedAdShown = true; // Implement you'r show reward ad logic
             if (rewardedAdShown)
             {
                 _freeBuyZone.ReduceCost(_freeBuyZone.TotalCost);
