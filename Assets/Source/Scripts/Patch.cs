@@ -7,6 +7,7 @@ internal class Patch : MonoBehaviour
     [SerializeField] private GameObject _model;
     [SerializeField] private StackPresenter _stack;
     [SerializeField] private Trigger<StackPresenter> _trigger;
+    [SerializeField] private ParticleSystem _breakEffect;
 
     private Plant _plant;
 
@@ -40,10 +41,10 @@ internal class Patch : MonoBehaviour
 
     private void OnPlantTaken()
     {
-        Break();
+        Break(false);
     }
 
-    internal void Break()
+    internal void Break(bool playEffect)
     {
         _plant.Break();
         _plant = null;
@@ -51,6 +52,9 @@ internal class Patch : MonoBehaviour
         _model.SetActive(true);
         _stack.Clear();
         _trigger.Enable();
+
+        if (playEffect)
+            _breakEffect.Play();
     }
     
     private void OnAdded(StackableObject rawSeed)

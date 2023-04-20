@@ -4,7 +4,7 @@ using UnityEngine;
 
 internal class EnemySpawner : MonoBehaviour
 {
-    [SerializeField] private Alien[] _enemyPrefabs;
+    [SerializeField] private Enemy[] _enemyPrefabs;
     [SerializeField] private Transform[] _spawnPoints;
 
     internal void Spawn(IEnumerable<Patch> targets)

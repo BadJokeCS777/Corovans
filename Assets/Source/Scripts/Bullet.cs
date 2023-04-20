@@ -4,7 +4,7 @@ internal class Bullet : MonoBehaviour
 {
     [SerializeField] private float _speed;
 
-    private Alien _target;
+    private Enemy _target;
 
     private void Update()
     {
@@ -21,12 +21,18 @@ internal class Bullet : MonoBehaviour
             return;
         }
 
+        if (_target == null)
+        {
+            Destroy(gameObject);
+            return;
+        }
+
         Vector3 direction = (targetPosition - transform.position).normalized;
         transform.forward = direction;
         transform.Translate(_speed * Time.deltaTime * direction, Space.World);
     }
 
-    internal void Init(Alien target)
+    internal void Init(Enemy target)
     {
         _target = target;
     }

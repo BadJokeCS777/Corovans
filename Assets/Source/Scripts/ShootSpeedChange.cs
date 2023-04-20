@@ -7,7 +7,7 @@ internal class ShootSpeedChange : MonoBehaviour
 
     private void Awake()
     {
-        foreach (Scarecrow scarecrow in FindObjectsOfType<Scarecrow>())
+        foreach (Turret scarecrow in FindObjectsOfType<Turret>())
         {
             scarecrow.SetShootInterval(_interval);
         }
